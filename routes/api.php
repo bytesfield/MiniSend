@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\SendMailController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('get/mails', [SendMailController::class, 'index']);
+Route::get('get/mail/{id}', [SendMailController::class, 'show']);
+Route::get('get/recipient/mail/{recipient}', [SendMailController::class, 'showRecipientMails']);
+Route::post('get/search/mail', [SendMailController::class, 'getEmailSearch']);
+Route::post('delete/mail/{id}', [SendMailController::class, 'destroy']);
+Route::post('send/mail', [SendMailController::class, 'store']);

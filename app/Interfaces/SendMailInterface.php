@@ -2,6 +2,8 @@
 
 namespace App\Interfaces;
 
+use App\Http\Requests\SearchMailRequest;
+use Illuminate\Http\Request;
 use App\Http\Requests\SendMailRequest;
 
 interface SendMailInterface
@@ -9,7 +11,7 @@ interface SendMailInterface
     /**
      * Get all Emails
      * 
-     * @method  GET api/allMails
+     * @method  GET api/get/mails
      * @access  public
      */
     public function getAllMails();
@@ -17,12 +19,33 @@ interface SendMailInterface
     /**
      * Get Email By ID
      * 
-     * @param   integer     $id
+     * @param integer $id
      * 
-     * @method  GET api/mail/{id}
+     * @method  GET api/get/mail/{id}
      * @access  public
      */
-    public function getEmailById($id);
+    public function getEmailById(int $id);
+
+    /**
+     * Get Email By Recipient
+     * 
+     * @param string $recipient
+     * 
+     * @method  GET api/get/mail/recipient/{recipient}
+     * @access  public
+     */
+    public function getEmailByRecipient(string $recipient);
+
+    /**
+     * Get Email By Recipient
+     * 
+     * @param \App\Http\Requests\SearchMailRequest $request
+     * 
+     * @method  GET api/get/mail/search
+     * @access  public
+     */
+    public function getEmailBySearch(SearchMailRequest $request);
+
 
     /**
      * Store Sent Mail
@@ -40,8 +63,8 @@ interface SendMailInterface
      * 
      * @param integer $id
      * 
-     * @method  DELETE  api/mail/{id}
+     * @method  DELETE  api/delete/mail/{id}
      * @access  public
      */
-    public function deleteMail($id);
+    public function deleteMail(int $id);
 }

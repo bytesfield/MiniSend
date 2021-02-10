@@ -2,19 +2,16 @@
 
 namespace App\Traits;
 
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 
 trait FileAction
 {
     public function uploadFile($file, $path)
     {
 
-        $filename = rand() . '.' . $file->getClientOriginalExtension();
+        $underscoredName = str_replace(' ', '_', $file->getClientOriginalName());
+        $filename = time() . '_' . $underscoredName;
+        $imagePath = $file->storeAs('files', $filename, 'public');
 
-        // Manually specify a filename...
-        Storage::putFileAs($file, new File($path), $filename);
-
-        return $filename;
+        return $imagePath;
     }
 }

@@ -30,15 +30,21 @@ class SendMail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails/send_mail')
+        $attachments = $this->data['attachments'];
+
+        $message = $this->view('emails/send_mail')
             ->from($this->data['from'])
-            ->subject($this->data['subject'])
-            ->attach(
-                $this->data['attachments']->getRealPath(),
+            ->subject($this->data['subject']);
+
+        foreach ($attachments as $attachment) {
+            $message->attach(
+                $attachment->getRealPath(),
                 [
-                    'as' => $this->data['attachments']->getClientOriginalName(),
-                    'mime' => $this->data['attachments']->getClientMimeType(),
+                    'as' => $attachment->getClientOriginalName(),
+                    'mime' => $attachment->getClientMimeType(),
                 ]
             );
+        }
+        return $message;
     }
 }

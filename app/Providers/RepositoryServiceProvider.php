@@ -6,7 +6,7 @@ use App\Interfaces\SendMailInterface;
 use App\Repositories\SendMailRepository;
 use Illuminate\Support\ServiceProvider;
 
-class RepositoryProvider extends ServiceProvider
+class RepositoryServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -15,7 +15,7 @@ class RepositoryProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(SendMailRepository::class, SendMailInterface::class);
+        $this->app->bind(SendMailInterface::class, SendMailRepository::class);
     }
 
     /**
